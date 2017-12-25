@@ -26,7 +26,7 @@ export function exportApi(server) {
           reply(json)
             .header('Content-Disposition', `attachment; filename="${filename}"`)
             .header('Content-Type', 'application/json')
-            .header('Content-Length', json.length);
+            .header('Content-Length', encodeURIComponent(json).replace(/%../g, "x").length);
         })
         .catch(err => reply(Boom.wrap(err, 400)));
     }
